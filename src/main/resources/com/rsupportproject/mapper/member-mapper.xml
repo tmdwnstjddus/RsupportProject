@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rsupportproject.mapper.MemberMapper">
+
+	<!-- 회원가입 -->
+	<insert id="registerMember" parameterType="Member">
+		INSERT INTO NOTICEMEMBER (MEMBERID, PASSWD, EMAIL) 
+		VALUES (#{ memberId }, #{ passwd }, #{ email })
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="loginMember" parameterType="hashmap" resultType="Member">
+		SELECT MEMBERID, EMAIL
+		FROM NOTICEMEMBER
+		WHERE MEMBERID = #{ memberId } AND PASSWD = #{ passwd }
+	</select>
+	
+	<!-- 아이디 중복 확인 -->
+	<select id="idCheck" resultType="Member">
+		SELECT MEMBERID
+		FROM NOTICEMEMBER
+		WHERE MEMBERID = #{ memberId }
+	</select>
+	
+	
+	
+	
+</mapper>

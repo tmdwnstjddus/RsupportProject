@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rsupportproject.mapper.NoticeMapper">
+
+
+	<!-- list -->
+	<!-- <select id="listView" resultType="Notice">
+		SELECT UPLOADNO, TITLE, UPLOADER, REGDATE, READCOUNT
+		FROM NOTICE 
+		WHERE DELETED = '0'
+		ORDER BY UPLOADNO DESC
+	</select> -->
+	
+	<!-- write -->
+	<insert id="writeNotice" parameterType="Notice" useGeneratedKeys="true" keyColumn="uploadNo" keyProperty="uploadNo">
+		INSERT INTO NOTICE (UPLOADNO, UPLOADER, TITLE, CONTENT)
+		VALUES (NOTICE_SEQUENCE.NEXTVAL, #{ uploader }, #{ title }, #{ content })
+	</insert>
+	
+	<!-- detail -->
+	<select id="detailView" 
+		parameterType="int" resultType="Notice">
+		SELECT UPLOADNO, UPLOADER, READCOUNT, TITLE, CONTENT, REGDATE, MODDATE
+		FROM NOTICE
+		WHERE UPLOADNO = #{ uploadNo } AND DELETED = '0'
+	</select>
+	
+	<!-- update -->
+	<update id="updateNotice" parameterType="Notice">
+		UPDATE NOTICE
+		SET TITLE = #{ title }, CONTENT = #{ content }, MODDATE = TO_DATE (SYSDATE,'YY/MM/DD')
+		WHERE UPLOADNO = #{ uploadNo }
+	</update>
+	
+	<!-- delete -->
+	<update id="delete" parameterType="int">
+		UPDATE NOTICE 
+		SET DELETED = '1'
+		WHERE UPLOADNO = #{ uploadNo }
+	</update>
+	
+	<!-- readcount -->
+	<update id="readCount" parameterType="int">
+		UPDATE NOTICE 
+		SET READCOUNT = READCOUNT+1
+		WHERE UPLOADNO = #{ uploadNo }
+   </update>
+   
+   <!-- pagination  -->
+   <select id="listView" resultType="Notice" parameterType="Criteria">
+       SELECT UPLOADNO, TITLE, UPLOADER, REGDATE, READCOUNT
+       FROM (
+         SELECT UPLOADNO, TITLE, UPLOADER, REGDATE, READCOUNT,
+         ROW_NUMBER() OVER(ORDER BY UPLOADNO DESC) AS rNum
+         FROM NOTICE
+         WHERE DELETED = '0'
+      	) LISTPAGE
+      WHERE rNum BETWEEN #{ rowStart }  and #{ rowEnd }
+      ORDER BY UPLOADNO DESC
+   </select> 
+   
+   <select id="listCount" resultType="int">
+   <![CDATA[
+      SELECT COUNT(UPLOADNO)
+      FROM NOTICE
+      WHERE UPLOADNO > 0
+   ]]>
+   </select>
+   
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
