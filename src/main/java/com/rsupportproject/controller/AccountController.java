@@ -1,6 +1,5 @@
 package com.rsupportproject.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +46,9 @@ public class AccountController {
 	//ID Check
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
-	public int idCheck(HttpServletRequest req) {
+	public int idCheck(String memberId) {
+	
 		
-		String memberId = req.getParameter("memberId");
 		Member idCheck = memberService.idCheck(memberId);
 		
 		int result = 0;

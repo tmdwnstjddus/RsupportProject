@@ -3,10 +3,10 @@ package com.rsupportproject.vo;
 
 public class Criteria
 {
-    private int page;
-    private int perPageNum;
-    private int rowStart;
-    private int rowEnd;
+    private int page; 		//현재페이지 번호
+    private int perPageNum; //한페이지당 보여줄 게시판 수
+    private int rowStart;   //보여주기시작할 페이지 번호
+    private int rowEnd;     //마지막으로 보여줄 페이지 번호
     
     public Criteria()
     {
@@ -29,7 +29,7 @@ public class Criteria
           if (perPageNum <= 0 || perPageNum > 100)
              
           {
-             this.perPageNum = 6;
+             this.perPageNum = 10;
              return;
           }
           

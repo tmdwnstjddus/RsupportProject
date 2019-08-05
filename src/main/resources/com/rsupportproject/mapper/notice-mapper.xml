@@ -50,6 +50,7 @@
    </update>
    
    <!-- pagination  -->
+   <!-- 가장 최근에 작성된 rowStart ~ rowEnd 개 까지 출력 -->
    <select id="listView" resultType="Notice" parameterType="Criteria">
        SELECT UPLOADNO, TITLE, UPLOADER, REGDATE, READCOUNT
        FROM (
@@ -57,11 +58,12 @@
          ROW_NUMBER() OVER(ORDER BY UPLOADNO DESC) AS rNum
          FROM NOTICE
          WHERE DELETED = '0'
-      	) LISTPAGE
+      	)
       WHERE rNum BETWEEN #{ rowStart }  and #{ rowEnd }
       ORDER BY UPLOADNO DESC
    </select> 
    
+   <!-- 게시물 총 갯수 -->
    <select id="listCount" resultType="int">
    <![CDATA[
       SELECT COUNT(UPLOADNO)
