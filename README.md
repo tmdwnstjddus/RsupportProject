@@ -1,7 +1,8 @@
 NOTICE WEB APPLICATION ( RSUPPORT )
 ===================================
 #### #공지사항을 등록할 수 있는 게시판 웹 애플리케이션입니다.#
-### 웹 서버 주소 : http://e442e8ec.ngrok.io/rsupport/
+#### ~~#사전과제 웹 서버 주소 : http://6654402f.ngrok.io/rsupport/~~ 
+#### #사전과제 웹 서버 주소:  http://e442e8ec.ngrok.io/rsupport/
 사용기술
 -------
 1. 개발환경 : Eclipse, Oracle
